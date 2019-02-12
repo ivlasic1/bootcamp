@@ -1,0 +1,72 @@
+module vlan {
+  namespace "http://com/example/vlan";
+  prefix vlan;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  import tailf-common {
+    prefix tailf;
+  }
+
+  description
+    "Description...";
+  revision 2018-01-17 {
+    description
+      "Initial revision.";
+  }
+
+augment /ncs:services {
+  list vlan {
+    key name;
+    unique vlan-id;
+
+    uses ncs:service-data;
+    ncs:servicepoint "vlan";
+
+    leaf name {
+      tailf:info "Service Instance Name";
+      type string;
+    }
+
+    leaf vlan-id {
+      tailf:info "Unique VLAN ID";
+      type uint32 {
+        range "1..4096";
+      }
+    }
+
+    list device {
+      tailf:info "L3 switch";
+      key name;
+      leaf name {
+        tailf:info "Device name";
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+      }
+    }
+
+    list interface {
+      tailf:info "Ethernet interface";
+      key "intf-type intf-id";
+      leaf intf-type {
+        tailf:info "Ethernet interface type";
+        type enumeration {
+          enum Ethernet;
+          enum FastEthernet;
+          enum GigabitEthernet;
+        }
+      }
+      leaf intf-id {
+        tailf:info "Ethernet interface ID";
+        type string;
+      }
+    }
+  }
+}
+}
