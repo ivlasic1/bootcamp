@@ -6,35 +6,35 @@
       <name>{/device}</name>
       <config>
         <!-- IOS -->
+	<?foreach {interface}?>
 	<interface xmlns="urn:ios">
-	  <?foreach {/Loopback}?>
 	  <Loopback>
-	    <name>{/loopback-intf}</name>
+	    <name>{loopback-intf/intf}</name>
 	    <ip>
 	      <address>
 	        <primary>
-	          <address>{/ip-address}</address>
+	          <address>{loopback-intf/ip-address}</address>
 		  <mask>255.255.255.255</mask>
 	        </primary>
 	      </address>
 	    </ip>
 	  </Loopback>
-	  <?end?>
 	</interface>
+	<?end?>
 	<!-- IOS-XR -->
+	<?foreach {interface}?>
 	<interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
-	  <?foreach {/Loopback}?>
 	  <Loopback>
-	    <id>{/loopback-intf}</id>
+	    <id>{loopback-intf/intf}</id>
 	    <ipv4>
 	      <address>
-		<ip>{/ip-address}</ip>
+		<ip>{loopback-intf/ip-address}</ip>
 		<mask>255.255.255.255</mask>
 	      </address>
 	    </ipv4>
 	  </Loopback>
-          <?end?>
 	</interface>
+	<?end?>
       </config>
     </device>
   </devices>
