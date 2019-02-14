@@ -35,19 +35,20 @@ module loopback {
 
       list loopback-intf {
         tailf:info "Loopback Interface Number from 1100 to 1199";
-	key intf;
-	leaf intf {
-	  type uint32 {
+	    key intf;
+	    leaf intf {
+	      type uint32 {
             range "1100..1199";
-          }	
-	}
-	leaf ip-address {
-	  tailf:info "Valid IP range from 10.100.x.x to 10.199.x.x.";
-	  mandatory true;
-	  type inet:ipv4-address {
+          }
+	    }
+
+	    leaf ip-address {
+	      tailf:info "Valid IP range from 10.100.x.x to 10.199.x.x.";
+	      mandatory true;
+	      type inet:ipv4-address {
             pattern "10\\.1[0-9][0-9]\\.[0-9]+\\.[0-9]+";
-	  }  
-	}        
+	      }
+	    }
       }
     }
   }

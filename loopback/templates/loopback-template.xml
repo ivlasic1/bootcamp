@@ -3,17 +3,18 @@
   <devices xmlns="http://tail-f.com/ns/ncs">
     <!-- DEVICE -->      
     <device>
-      <name>{/device}</name>
+      <name>{$DEVICE}</name>
       <config>
         <!-- IOS -->
+	<?if {$DEVICE_TYPE='ios-id:cisco-ios'}?>
 	<?foreach {loopback-intf}?>
 	<interface xmlns="urn:ios">
 	  <Loopback>
-	    <name>{intf}</name>
+	    <name>{$INTERFACE}</name>
 	    <ip>
 	      <address>
 	        <primary>
-	          <address>{ip-address}</address>
+	          <address>{$ADDRESS}</address>
 		  <mask>255.255.255.255</mask>
 	        </primary>
 	      </address>
@@ -21,19 +22,22 @@
 	  </Loopback>
 	</interface>
 	<?end?>
+	<?end?>
 	<!-- IOS-XR -->
+	<?if {$DEVICE_TYPE='cisco-ios-xr-id:cisco-ios-xr'}?>
 	<?foreach {loopback-intf}?>
 	<interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
 	  <Loopback>
-	    <id>{intf}</id>
+	    <id>{$INTERFACE}</id>
 	    <ipv4>
 	      <address>
-		<ip>{ip-address}</ip>
+		<ip>{$ADDRESS}</ip>
 		<mask>255.255.255.255</mask>
 	      </address>
 	    </ipv4>
 	  </Loopback>
 	</interface>
+	<?end?>
 	<?end?>
       </config>
     </device>
